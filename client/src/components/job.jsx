@@ -1,8 +1,11 @@
 
-export default function Job() {
+export default function Job({ job }) {
   return (
-    <div>
-      <p>Hi from Jobs...</p>
-    </div>
+    <>
+      <div className={'job'}>
+        <span>{job.role}</span>
+        <span>{job.company}</span>
+      </div>
+    </>
   )
 }
