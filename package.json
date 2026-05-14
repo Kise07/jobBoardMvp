@@ -1,0 +1,16 @@
+{
+  "name": "jobboardmvp",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "cron": "^4.4.0",
+    "redis": "^5.12.1"
+  }
+}
