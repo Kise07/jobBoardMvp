@@ -1,8 +1,12 @@
 import express from 'express';
 import { createClient } from 'redis';
+import cors from 'cors';
 
 const app = express();
 const port = 8080;
+
+// cors middleware
+app.use(cors());
 
 // Create and connect client
 const client = createClient();
