@@ -9,7 +9,7 @@ export default function Jobs({ job }) {
 
   return (
     <>
-      <div className="jobs bg-sky-900 text-white text-2xl p-4 shadow-md">
+      <div className="jobs bg-sky-900 text-white text-2xl p-4 shadow-md justify-center flex">
         Jobs Hiring Board
       </div>
       <div>
