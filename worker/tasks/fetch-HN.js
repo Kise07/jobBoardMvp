@@ -1,9 +1,12 @@
 import { createClient } from 'redis';
 
 const HN_ITEM_ID = '43243024';
-const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
 
 async function fetchHNJobs() {
+  const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
+  if (!process.env.REDIS_URL) {
+    console.warn('⚠️  REDIS_URL not set! Using localhost fallback');
+  }
   const client = createClient({ url: REDIS_URL });
   client.on('error', (err) => console.error('Redis error:', err));
   await client.connect();
@@ -50,25 +53,41 @@ async function fetchHNJobs() {
   console.log('filtered down to', jrJobs.length, 'junior-friendly jobs');
 
   // Store individual jobs
+  console.log('Starting to store', jrJobs.length, 'individual jobs...');
+  let storedCount = 0;
   for (const job of jrJobs) {
-    await client.set(
-      `job:${job.id}`,
-      JSON.stringify(job),
-      { EX: 60 * 60 * 24 } // 24-hour TTL
-    );
+    try {
+      const result = await client.set(
+        `job:${job.id}`,
+        JSON.stringify(job),
+        { EX: 60 * 60 * 24 } // 24-hour TTL
+      );
+      if (result === 'OK') {
+        storedCount++;
+      } else {
+        console.warn(`Failed to store job:${job.id} - result: ${result}`);
+      }
+    } catch (err) {
+      console.error(`Error storing job:${job.id}:`, err.message);
+    }
   }
+  console.log(`Finished storing individual jobs (${storedCount}/${jrJobs.length} successful)`);
 
   // Use correct key name that API expects
-  await client.set(
+  console.log('Storing job IDs index...');
+  const indexResult = await client.set(
     `hn:${HN_ITEM_ID}:jobIds`,
     JSON.stringify(jrJobs.map(j => j.id)),
     { EX: 60 * 60 * 24 }
   );
+  console.log('Index storage result:', indexResult);
 
   console.log('stored', jrJobs.length, 'jobs in Redis');
   console.log({ success: jrJobs.length > 0 ? 'OK' : 'EMPTY' });
 
+  console.log('Disconnecting from Redis...');
   await client.disconnect();
+  console.log('Disconnected');
   return jrJobs;
 }
 
@@ -206,5 +225,4 @@ function extractTags(text) {
     });
 }
 
-fetchHNJobs();
 export default fetchHNJobs;
