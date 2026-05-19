@@ -3,10 +3,13 @@ import { createClient } from 'redis';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import job from '../worker/index.js'; // Start cron job
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Load .env file
 dotenv.config();
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -14,6 +17,9 @@ console.log('Starting Hacker News Jobs cron job...');
 
 // cors middleware
 app.use(cors());
+
+// Serve static files from client build
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Create and connect client
 const client = createClient({
@@ -31,7 +37,8 @@ client.on('connect', () => console.log('✅ Redis Connected'));
 
 await client.connect();
 
-app.get('/jobs', async (req, res) => {
+// API Routes
+app.get('/api/jobs', async (req, res) => {
   try {
     // Get the job IDs index
     const jobIds = await client.get('hn:43243024:jobIds');
@@ -54,13 +61,8 @@ app.get('/jobs', async (req, res) => {
   }
 });
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.send({ status: 'OK' });
-});
-
 // Manual trigger to fetch jobs (admin endpoint for testing)
-app.post('/admin/fetch-jobs', async (req, res) => {
+app.post('/api/admin/fetch-jobs', async (req, res) => {
   try {
     console.log('Manual job fetch triggered...');
     // Manually trigger the cron job's onTick function
@@ -69,6 +71,16 @@ app.post('/admin/fetch-jobs', async (req, res) => {
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
+});
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.send({ status: 'OK' });
+});
+
+// SPA Fallback - serve index.html for all other routes
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 app.listen(port, () => {

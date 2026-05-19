@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css'
 import Jobs from './components/jobs'
 
-const JOB_API_URL = 'http://localhost:8080/jobs';
+const JOB_API_URL = '/api/jobs';
 
 const mockJobs = [
   {
