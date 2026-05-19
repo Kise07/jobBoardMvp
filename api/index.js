@@ -9,7 +9,9 @@ const port = 8080;
 app.use(cors());
 
 // Create and connect client
-const client = createClient();
+const client = createClient({
+  url: process.env.REDIS_URL || 'redis://localhost:6379',
+});
 
 // Handle connection events
 client.on('error', (err) => console.log('Redis Client Error', err));
