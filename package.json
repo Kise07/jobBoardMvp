@@ -6,13 +6,13 @@
     "start": "node api/index.js",
     "dev": "node api/index.js"
   },
-  "devDependencies": {},
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
     "cors": "^2.8.6",
     "cron": "^4.4.0",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "redis": "^5.12.1"
   }

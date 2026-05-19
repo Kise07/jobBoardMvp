@@ -1,6 +1,10 @@
 import express from 'express';
 import { createClient } from 'redis';
 import cors from 'cors';
+import * as dotenv from 'dotenv';
+
+// Load .env file
+dotenv.config();
 
 const app = express();
 const port = 8080;
