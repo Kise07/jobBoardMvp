@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css'
 import Jobs from './components/jobs'
 
-const JOB_API_URL = '/api/jobs';
+const JOB_API_URL = 'https://jobboardmvp-production.up.railway.app/jobs';
 
 const mockJobs = [
   {

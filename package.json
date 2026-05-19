@@ -4,12 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node api/index.js",
-    "dev": "node api/index.js",
-    "build:client": "cd client && npm install && npm run build",
-    "postinstall": "npm run build:client"
+    "dev": "node api/index.js"
   },
-  "devDependencies": {
-    "npm": "^10.0.0"
+  "peerDependencies": {
+    "typescript": "^5"
   },
   "dependencies": {
     "cors": "^2.8.6",
