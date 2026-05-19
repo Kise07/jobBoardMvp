@@ -2,6 +2,10 @@
   "name": "jobboardmvp",
   "type": "module",
   "private": true,
+  "scripts": {
+    "start": "node api/index.js",
+    "dev": "node api/index.js"
+  },
   "devDependencies": {},
   "peerDependencies": {
     "typescript": "^5"
