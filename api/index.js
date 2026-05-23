@@ -4,13 +4,19 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 import job from '../worker/index.js'; // Start cron job
 
-// Load .env file
-dotenv.config();
+// Load environment-specific .env file
+const envFile = process.env.NODE_ENV === 'production' ? '.env' : '.env.local';
+dotenv.config({ path: envFile });
+// Fallback to .env if .env.local doesn't exist
+if (envFile !== '.env') {
+  dotenv.config({ path: '.env', override: false });
+}
 
 const app = express();
 const port = process.env.PORT || 8080;
 
 console.log('Starting Hacker News Jobs cron job...');
+console.log(`Using Redis: ${process.env.REDIS_URL?.substring(0, 50)}...`);
 
 // cors middleware
 app.use(cors());
@@ -30,27 +36,46 @@ client.on('error', (err) => {
 client.on('connect', () => console.log('✅ Redis Connected'));
 
 await client.connect();
+console.log('✅ Connected to Redis at', process.env.REDIS_URL?.substring(0, 50) + '...');
 
 // API Routes
 app.get('/jobs', async (req, res) => {
   try {
+    console.log('Fetching jobs...');
+    
     // Get the job IDs index
     const jobIds = await client.get('hn:43243024:jobIds');
 
     if (!jobIds) {
+      console.warn('No job IDs index found');
       return res.status(404).send({ error: "No jobs data found. Try running: node worker/tasks/fetch-HN.js" });
     }
 
     const ids = JSON.parse(jobIds);
+    console.log(`Found ${ids.length} job IDs`);
 
     // Fetch individual jobs
-    const jobs = await Promise.all(
+    const jobData = await Promise.all(
       ids.map(id => client.get(`job:${id}`))
     );
 
-    console.log(`Returning ${jobs.length} jobs`);
-    res.send(jobs.map(j => JSON.parse(j)));
+    // Filter out null values and parse valid jobs
+    const jobs = jobData
+      .filter(j => j !== null && j !== undefined)
+      .map((j, idx) => {
+        try {
+          return JSON.parse(j);
+        } catch (parseErr) {
+          console.error(`Error parsing job at index ${idx}:`, parseErr.message);
+          return null;
+        }
+      })
+      .filter(j => j !== null);
+
+    console.log(`Returning ${jobs.length} jobs (out of ${ids.length} total)`);
+    res.send(jobs);
   } catch (error) {
+    console.error('Error in /jobs endpoint:', error);
     res.status(500).send({ error: error.message });
   }
 });
@@ -64,10 +89,11 @@ app.get('/health', (req, res) => {
 app.post('/admin/fetch-jobs', async (req, res) => {
   try {
     console.log('Manual job fetch triggered...');
-    // Manually trigger the cron job's onTick function
-    job.fireOnTick();
-    res.send({ success: true, message: 'Jobs fetch triggered' });
+    // Manually trigger the cron job's onTick function and wait for it
+    const result = await job.fireOnTick();
+    res.send({ success: true, message: 'Jobs fetch completed', result });
   } catch (error) {
+    console.error('Error fetching jobs:', error);
     res.status(500).send({ error: error.message });
   }
 });
