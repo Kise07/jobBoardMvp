@@ -40,11 +40,13 @@ console.log('✅ Connected to Redis at', process.env.REDIS_URL?.substring(0, 50)
 
 // API Routes
 app.get('/jobs', async (req, res) => {
+  const threadId = process.env.HN_THREAD_ID;
+
   try {
     console.log('Fetching jobs...');
-    
+
     // Get the job IDs index
-    const jobIds = await client.get('hn:43243024:jobIds');
+    const jobIds = await client.get(`hn:${threadId}:jobIds`);
 
     if (!jobIds) {
       console.warn('No job IDs index found');

@@ -1,9 +1,8 @@
 // worker/fetch-hn-jobs.js
 import { createClient } from 'redis';
 
-const HN_ITEM_ID = '43243024';
-
 async function fetchHNJobs() {
+  const HN_ITEM_ID = process.env.HN_THREAD_ID;
   const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
   const client = createClient({ url: REDIS_URL });
   client.on('error', (err) => console.error('Redis error:', err));

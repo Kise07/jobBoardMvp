@@ -10,7 +10,7 @@ export default function Jobs({ job }) {
   return (
     <>
       <div className="jobs bg-sky-900 text-white text-2xl p-4 shadow-md justify-center flex">
-        Jobs Hiring Board
+        2026 HN Tech Jobs
       </div>
       <div>
         {
