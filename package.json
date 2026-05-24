@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node api/index.js",
-    "dev": "node api/index.js"
+    "dev": "node api/index.js",
+    "worker:run": "node worker/trigger.js"
   },
   "peerDependencies": {
     "typescript": "^5"
