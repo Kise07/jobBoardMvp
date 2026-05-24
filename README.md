@@ -1,6 +1,6 @@
 # Job Board MVP
 
-A production-ready full-stack application that displays 75+ junior-friendly job listings from Hacker News, updated daily. Built to showcase real-world deployment skills and full-stack development capabilities.
+A production-ready full-stack application that displays 190+ job listings from Hacker News, updated daily. Built to showcase real-world deployment skills and full-stack development capabilities.
 
 ## 🌍 Live Demo
 
@@ -12,7 +12,7 @@ A production-ready full-stack application that displays 75+ junior-friendly job 
 
 ## ✨ Features
 
-- **75+ junior-friendly jobs** - Updated daily at midnight PT
+- **190+ jobs from Hacker News** - Updated daily at midnight PT
 - **Redis caching** - 95% fewer API calls with 24-hour TTL
 - **Automated worker** - node-cron fetches from Hacker News API
 - **Parallel fetching** - Promise.all() for <100ms response times
@@ -54,7 +54,7 @@ npm run dev
 ## 📚 API Endpoints
 
 ```bash
-GET /jobs              # Returns 75 job objects
+GET /jobs              # Returns all parsed job objects
 GET /health            # Health check (returns {status: OK})
 POST /admin/fetch-jobs # Manually trigger job fetch (for testing)
 ```
@@ -65,7 +65,7 @@ POST /admin/fetch-jobs # Manually trigger job fetch (for testing)
   {
     "id": "43243034",
     "company": "Company Name",
-    "role": "Junior Software Engineer",
+    "role": "Software Engineer",
     "location": "Remote",
     "tags": ["React", "Node.js"],
     "link": "https://news.ycombinator.com/..."
@@ -88,9 +88,9 @@ jobBoardMvp/
 ```
 Worker (Daily at midnight PT)
 ├─ Fetch from Hacker News Algolia API
-├─ Parse 184 comments into job objects
-├─ Filter for junior-friendly roles only
-└─ Store in Redis (75 jobs, 24-hour TTL)
+├─ Parse comments into structured job objects
+├─ Comprehensive parsing (Company, Role, Location, Salary, Tags)
+└─ Store in Redis (190+ jobs, 24-hour TTL)
 
 API (Always Running)
 ├─ Two-step fetch: Get IDs index → Get all jobs in parallel
@@ -100,7 +100,7 @@ API (Always Running)
 Frontend (React on Vercel)
 ├─ Fetch on component mount
 ├─ Auto-retry every 3s if backend down
-├─ Display 75 jobs in responsive UI
+├─ Display 190+ jobs in responsive UI
 └─ User can click to view HN comments
 ```
 
@@ -110,7 +110,7 @@ Frontend (React on Vercel)
 |--------|-------|
 | **API Response** | <100ms (Redis cached) |
 | **Frontend Load** | ~1s (Vercel optimized) |
-| **Jobs Displayed** | 75 junior-friendly roles |
+| **Jobs Displayed** | 190+ total jobs |
 | **Update Frequency** | Daily at midnight PT |
 | **Cache Hit Rate** | ~95% (fewer API calls) |
 | **HTTPS** | ✅ Enabled (Let's Encrypt free SSL) |
