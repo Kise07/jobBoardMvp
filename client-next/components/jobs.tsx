@@ -8,18 +8,20 @@ export const fetchJobs = async () => {
   const res = await fetch(API_URL);
   const json = await res.json();
 
-  // console.log({ json });
+  console.log({ json });
   return json;
 };
 
-export const Jobs = ({
-  jobs,
-}: {
-  jobs: { title: string; company: string }[];
-}) => {
-  const [jobList, setJobList] = useState<{ role: string; company: string }[]>(
-    [],
-  );
+type JobType = {
+  company: string;
+  role: string;
+  raw: string;
+  tags: string[];
+  className?: string;
+};
+
+export const Jobs = () => {
+  const [jobList, setJobList] = useState<JobType[]>([]);
 
   useEffect(() => {
     fetchJobs().then((data) => setJobList(data));
