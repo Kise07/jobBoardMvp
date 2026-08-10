@@ -1,6 +1,6 @@
 import { cn } from "@/libs/utils";
-import { Container } from "./container";
 import { motion } from "motion/react";
+import { Container } from "./container";
 
 export const Job = ({
   job,
@@ -10,6 +10,7 @@ export const Job = ({
     company: string;
     raw: string;
     tags: string[];
+    url: string;
     className?: string;
   };
 }) => {
@@ -20,6 +21,7 @@ export const Job = ({
         role={job.role}
         raw={job.raw}
         tags={job.tags}
+        url={job.url}
         className={job.className}
       />
     </Container>
@@ -31,27 +33,26 @@ const Card = ({
   role,
   raw,
   tags,
+  url,
   className,
 }: {
   company: string;
   role: string;
   raw: string;
   tags: string[];
+  url: string;
   className?: string;
 }) => {
   return (
     <motion.div
       key={role}
-      className="flex flex-col items-start gap-4 rounded-[16px] border border-transparent bg-white p-4 ring-1 shadow-black/10 ring-black/10"
+      className="flex flex-col items-start gap-4 rounded-[16px] border border-transparent bg-neutral-100 dark:bg-neutral-200 p-4 ring-1 shadow-black/10 ring-black/10"
     >
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col items-start lg:flex-row gap-2">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className={cn(
-            "mt-1 flex size-6 shrink-0 items-center justify-center rounded-full",
-            className,
-          )}
+          className={cn("text-lg font-bold text-neutral-800", className)}
         >
           {company}
         </motion.div>
@@ -59,7 +60,7 @@ const Card = ({
           initial={{ opacity: 0, filter: `blur(10px)` }}
           animate={{ opacity: 1, filter: `blur(0px)` }}
           transition={{ delay: 0.1 }}
-          className="text-lg font-bold text-neutral-800"
+          className="text-lg  text-neutral-800"
         >
           {role}
         </motion.p>
@@ -70,8 +71,20 @@ const Card = ({
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
-        <p className="text-base text-neutral-600">Tone Guidelines</p>
-        <p className="mt-2 mb-4 rounded-sm border border-dashed border-neutral-200 px-2 py-1 text-sm text-neutral-600">
+        <div className="flex items-start justify-between">
+          <p className="text-base text-neutral-600 border border-neutral-100 rounded-md w-fit border-neutral-400 bg-white py-0.5 px-1">
+            Description
+          </p>
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 rounded-md bg-neutral-800 px-3 py-1 text-sm text-white hover:bg-neutral-700 transition-colors"
+          >
+            View on Hacker News →
+          </a>{" "}
+        </div>
+        <p className="mt-2 mb-4 rounded-sm border border-dashed border-neutral-500 dark:border-neutral-400 px-2 py-1 text-sm text-neutral-600">
           {raw}
         </p>
         <div className="mt-2 flex flex-row flex-wrap gap-2">
