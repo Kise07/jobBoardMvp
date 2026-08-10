@@ -17,7 +17,7 @@ const mockJobs = [
 
 export default function Home() {
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-auto bg-neutral-100 dark:bg-neutral-50">
       <Jobs />
     </div>
   );
