@@ -1,9 +1,8 @@
-import express from "express";
-import { createClient } from "redis";
 import cors from "cors";
 import * as dotenv from "dotenv";
-import job from "../worker/index.js"; // Start cron job
+import express from "express";
 import rateLimit from "express-rate-limit";
+import { createClient } from "redis";
 
 // Load environment-specific .env file
 const envFile = process.env.NODE_ENV === "production" ? ".env" : ".env.local";
