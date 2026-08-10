@@ -75,14 +75,16 @@ const Card = ({
           <p className="text-base text-neutral-600 border border-neutral-100 rounded-md w-fit border-neutral-400 bg-white py-0.5 px-1">
             Description
           </p>
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-md bg-neutral-800 px-3 py-1 text-sm text-white hover:bg-neutral-700 transition-colors"
-          >
-            View on Hacker News →
-          </a>{" "}
+          <button className="hover:scale-[0.95]">
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 rounded-md bg-neutral-800 px-3 py-1 text-sm text-white hover:bg-neutral-700 transition-colors"
+            >
+              View on Hacker News →
+            </a>{" "}
+          </button>
         </div>
         <p className="mt-2 mb-4 rounded-sm border border-dashed border-neutral-500 dark:border-neutral-400 px-2 py-1 text-sm text-neutral-600">
           {raw}
