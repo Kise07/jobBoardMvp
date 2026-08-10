@@ -1,19 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Job } from "./job";
 import { isLocation, parseRoleFromRaw } from "@/libs/parse-job";
-import { Heading } from "./heading";
-import { SectionHeading } from "./section-heading";
-import { Container } from "./container";
 import { Banner } from "./banner";
-
-const API_URL = "https://jobboardmvp.onrender.com/jobs";
-
-export const fetchJobs = async () => {
-  const res = await fetch(API_URL);
-  const json = await res.json();
-  return json;
-};
+import { Container } from "./container";
+import { Job } from "./job";
 
 type JobType = {
   company: string;
@@ -24,17 +13,12 @@ type JobType = {
   className?: string;
 };
 
-export const Jobs = () => {
-  const [jobList, setJobList] = useState<JobType[]>([]);
-
-  useEffect(() => {
-    fetchJobs().then((data) => setJobList(data));
-  }, []);
+export const Jobs = ({ initialJobs }: { initialJobs: JobType[] }) => {
   return (
     <Container>
       <Banner />
       <div>
-        {jobList.map((job, i) => {
+        {initialJobs.map((job, i) => {
           const resolvedJob = {
             ...job,
             role: isLocation(job.role) ? parseRoleFromRaw(job.raw) : job.role,

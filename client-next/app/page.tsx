@@ -1,24 +1,18 @@
 import { Jobs } from "@/components/jobs";
 
-const mockJobs = [
-  {
-    role: "Frontend Developer",
-    company: "TechCorp",
-  },
-  {
-    role: "Backend Engineer",
-    company: "Innovatech",
-  },
-  {
-    role: "Full Stack Developer",
-    company: "WebSolutions",
-  },
-];
+async function getJobs() {
+  const res = await fetch("https://jobboardmvp.onrender.com/jobs", {
+    cache: "no-store",
+  });
+  if (!res.ok) return [];
+  return res.json();
+}
 
-export default function Home() {
+export default async function Page() {
+  const jobs = await getJobs();
   return (
     <div className="max-w-5xl mx-auto bg-neutral-100 dark:bg-neutral-50">
-      <Jobs />
+      <Jobs initialJobs={jobs} />
     </div>
   );
 }
