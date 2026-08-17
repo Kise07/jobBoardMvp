@@ -1,15 +1,15 @@
 # Job Board MVP
 
-A full-stack job board that aggregates 190+ job listings from Hacker News "Who is hiring?" threads, updated daily.
+A full-stack job board that aggregates junior-friendly job listings from Hacker News "Who is hiring?" threads, updated daily.
 
 **Live:** [jobboard.yean.me](https://jobboard.yean.me/)
 
 ## Tech Stack
 
-- **Frontend:** React 19, Vite, Tailwind CSS
-- **Backend:** Node.js, Express
+- **Frontend:** Next.js 16, React 19, TypeScript, Tailwind CSS v4, Motion (Framer Motion)
+- **Backend:** Node.js, Express 5
 - **Database:** Redis (Upstash)
-- **Cron:** node-cron (daily at midnight PT)
+- **Cron:** Daily at midnight PT
 - **Deploy:** Vercel (frontend), Render (backend)
 
 ## Quick Start
@@ -20,9 +20,9 @@ npm install
 npm run dev          # http://localhost:8080
 
 # Frontend (new terminal)
-cd client
+cd client-next
 npm install
-npm run dev          # http://localhost:5173
+npm run dev          # http://localhost:3000
 
 # Seed data
 npm run worker:run
@@ -30,27 +30,26 @@ npm run worker:run
 
 ## API Endpoints
 
-| Method | Route               | Description              |
-| ------ | ------------------- | ------------------------ |
-| GET    | `/jobs`             | Returns all job listings |
-| GET    | `/health`           | Health check             |
-| POST   | `/admin/fetch-jobs` | Trigger manual job fetch |
+| Method | Route       | Description              |
+| ------ | ----------- | ------------------------ |
+| GET    | `/jobs`     | Returns all job listings |
+| GET    | `/health`   | Health check             |
 
 ## Project Structure
 
 ```
 jobBoardMvp/
 ├── api/            # Express server
-├── client/         # React frontend
+├── client-next/    # Next.js frontend
 ├── worker/         # Cron job + job fetcher
 └── package.json
 ```
 
 ## How It Works
 
-1. **Worker** fetches HN thread daily via Algolia API, parses comments into structured job objects (company, role, location, salary, tags)
-2. **API** serves jobs from Redis with 24h TTL
-3. **Frontend** fetches on mount, auto-retries every 3s if backend is down
+1. **Worker** fetches HN thread daily via Algolia API, parses comments into structured job objects (company, role, location, tags, and salary when disclosed)
+2. **API** serves jobs from Redis with 24h TTL, rate-limited to 100 req/15min
+3. **Frontend** uses Next.js Server Components to fetch jobs server-side, eliminating client-side API calls
 
 ## Environment Variables
 
@@ -59,7 +58,6 @@ jobBoardMvp/
 | `REDIS_URL`    | Redis connection | `redis://localhost:6379`     | Upstash `rediss://` URL                 |
 | `HN_THREAD_ID` | HN thread ID     | `49156683`                   | `49156683`                              |
 | `PORT`         | Server port      | `8080`                       | `10000` (Render)                        |
-| `VITE_API_URL` | Backend URL      | `http://localhost:8080/jobs` | `https://jobboardmvp.onrender.com/jobs` |
 
 ## License
 
