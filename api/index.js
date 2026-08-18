@@ -22,7 +22,7 @@ console.log(`Using Redis: ${process.env.REDIS_URL?.substring(0, 50)}...`);
 app.use(
   cors({
     origin: [
-      "https://jobboard.yean.me", // Production (Vercel)
+      "https://job-board-mvp-f4n8.vercel.app", // Production (Vercel)
       "http://localhost:3000", // Local dev (Next.js)
       "http://localhost:3001", // Local dev (alternate port)
     ],

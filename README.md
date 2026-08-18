@@ -2,7 +2,7 @@
 
 A full-stack job board that aggregates junior-friendly job listings from Hacker News "Who is hiring?" threads, updated daily.
 
-**Live:** [jobboard.yean.me](https://jobboard.yean.me/)
+**Live:** [https://job-board-mvp-f4n8.vercel.app/](https://job-board-mvp-f4n8.vercel.app/)
 
 ## Tech Stack
 
@@ -30,10 +30,10 @@ npm run worker:run
 
 ## API Endpoints
 
-| Method | Route       | Description              |
-| ------ | ----------- | ------------------------ |
-| GET    | `/jobs`     | Returns all job listings |
-| GET    | `/health`   | Health check             |
+| Method | Route     | Description              |
+| ------ | --------- | ------------------------ |
+| GET    | `/jobs`   | Returns all job listings |
+| GET    | `/health` | Health check             |
 
 ## Project Structure
 
@@ -53,11 +53,11 @@ jobBoardMvp/
 
 ## Environment Variables
 
-| Variable       | Description      | Local                        | Production                              |
-| -------------- | ---------------- | ---------------------------- | --------------------------------------- |
-| `REDIS_URL`    | Redis connection | `redis://localhost:6379`     | Upstash `rediss://` URL                 |
-| `HN_THREAD_ID` | HN thread ID     | `49156683`                   | `49156683`                              |
-| `PORT`         | Server port      | `8080`                       | `10000` (Render)                        |
+| Variable       | Description      | Local                    | Production              |
+| -------------- | ---------------- | ------------------------ | ----------------------- |
+| `REDIS_URL`    | Redis connection | `redis://localhost:6379` | Upstash `rediss://` URL |
+| `HN_THREAD_ID` | HN thread ID     | `49156683`               | `49156683`              |
+| `PORT`         | Server port      | `8080`                   | `10000` (Render)        |
 
 ## License
 
