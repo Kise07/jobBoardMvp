@@ -75,7 +75,7 @@ const Card = ({
           <p className="text-base text-neutral-600 border border-neutral-100 rounded-md w-fit border-neutral-400 bg-white py-0.5 px-1">
             Description
           </p>
-          <button className="hover:scale-[0.95]">
+          <button className="active:scale-[0.95]">
             <a
               href={url}
               target="_blank"
