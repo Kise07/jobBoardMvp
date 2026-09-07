@@ -5,7 +5,7 @@ export const Banner = () => {
   return (
     <div className="flex items-center justify-between">
       <Heading>2026 HN Job Board</Heading>
-      <SectionHeading delay={0.2}>August Edition</SectionHeading>
+      <SectionHeading delay={0.2}>September Edition</SectionHeading>
     </div>
   );
 };
