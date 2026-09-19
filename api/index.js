@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import { createClient } from "redis";
+import "../worker/index.js";
 
 // Load environment-specific .env file
 const envFile = process.env.NODE_ENV === "production" ? ".env" : ".env.local";
