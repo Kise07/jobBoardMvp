@@ -72,7 +72,7 @@ const Card = ({
         transition={{ delay: 0.2 }}
       >
         <div className="flex items-start justify-between">
-          <p className="text-base text-neutral-600 border border-neutral-100 rounded-md w-fit border-neutral-400 bg-white py-0.5 px-1">
+          <p className="text-[12px] md:text-base text-neutral-600 border border-neutral-100 rounded-md w-fit border-neutral-400 bg-white py-0.5 px-1">
             Description
           </p>
           <button className="active:scale-[0.95]">
@@ -80,13 +80,13 @@ const Card = ({
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-md bg-neutral-800 px-3 py-1 text-sm text-white hover:bg-neutral-700 transition-colors"
+              className="inline-flex items-center gap-1 rounded-md bg-neutral-800 px-3 py-1 text-[12px] md:text-sm text-white hover:bg-neutral-700 transition-colors"
             >
               View on Hacker News →
             </a>{" "}
           </button>
         </div>
-        <p className="mt-2 mb-4 rounded-sm border border-dashed border-neutral-500 dark:border-neutral-400 px-2 py-1 text-sm text-neutral-600">
+        <p className="mt-2 mb-4 rounded-sm border border-dashed border-neutral-500 dark:border-neutral-400 p-1.5 text-sm text-neutral-600">
           {raw}
         </p>
         <div className="mt-2 flex flex-row flex-wrap gap-2">
