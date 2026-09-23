@@ -11,7 +11,7 @@ async function getJobs() {
 export default async function Page() {
   const jobs = await getJobs();
   return (
-    <div className="max-w-5xl mx-auto bg-neutral-100 dark:bg-neutral-50">
+    <div className="md:max-w-3xl lg:max-w-5xl w-full md:mx-auto bg-neutral-100 dark:bg-neutral-50">
       <Jobs initialJobs={jobs} />
     </div>
   );
