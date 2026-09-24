@@ -1,6 +1,5 @@
 import { cn } from "@/libs/utils";
 import { motion } from "motion/react";
-import { Container } from "./container";
 
 export const Job = ({
   job,
@@ -15,7 +14,7 @@ export const Job = ({
   };
 }) => {
   return (
-    <Container className="mb-4">
+    <div className="mb-4">
       <Card
         company={job.company}
         role={job.role}
@@ -24,7 +23,7 @@ export const Job = ({
         url={job.url}
         className={job.className}
       />
-    </Container>
+    </div>
   );
 };
 
@@ -86,7 +85,7 @@ const Card = ({
             </a>{" "}
           </button>
         </div>
-        <p className="mt-2 mb-4 rounded-sm border border-dashed border-neutral-500 dark:border-neutral-400 p-1.5 text-sm text-neutral-600">
+        <p className="break-all mt-2 rounded-sm border border-dashed border-neutral-500 dark:border-neutral-400 p-1.5 text-sm text-neutral-600">
           {raw}
         </p>
         <div className="mt-2 flex flex-row flex-wrap gap-2">

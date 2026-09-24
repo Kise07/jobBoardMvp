@@ -12,17 +12,17 @@ export const ModeToggle = ({ className }: { className?: string }) => {
     <button
       onClick={SWITCH}
       className={cn(
-        "relative flex size-6 items-center justify-center rounded-md border border-neutral-200 dark:border-neutral-600",
+        "relative flex size-6 items-center justify-center rounded-md border border-neutral-200",
         className,
       )}
     >
       <SunIcon
         size={15}
-        className="absolute inset-0 m-auto scale-100 rotate-0 transition-all duration-300 dark:scale-0 dark:rotate-90 text-neutral-800 dark:text-neutral-200"
+        className="absolute inset-0 m-auto scale-100 rotate-0 transition-all duration-300 dark:scale-0 dark:rotate-90 text-neutral-800"
       />
       <MoonIcon
         size={15}
-        className="absolute inset-0 m-auto scale-0 rotate-90 transition-all duration-300 dark:scale-100 dark:rotate-0 text-neutral-200 dark:text-neutral-800"
+        className="absolute inset-0 m-auto scale-0 rotate-90 transition-all duration-300 dark:scale-100 dark:rotate-0 dark:text-neutral-800"
       />
     </button>
   );
