@@ -27,14 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning className="...">
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `...localStorage theme script...`,
-          }}
-        />
-      </head>
-      <body className="...">
+      <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
