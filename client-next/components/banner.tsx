@@ -8,7 +8,7 @@ export const Banner = () => {
       <Heading>2026 HN Job Board</Heading>
       <div className="flex flex-col justify-center items-end gap-2">
         <ModeToggle className="top-8 right-9" />
-        <SectionHeading delay={0.2}>September Edition</SectionHeading>
+        <SectionHeading delay={0.2}>October Edition</SectionHeading>
       </div>
     </div>
   );
